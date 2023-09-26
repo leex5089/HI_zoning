@@ -147,16 +147,16 @@ a:active {
                         
  
 <ul>
-  <li><strong>Click on or touch a district to view data. </strong></li>
-  <li><strong>Zoom in/out or position map with cursor or finger to access a district. </strong></li> 
+  <li><strong>Click on or touch a Abbreviate to view data. </strong></li>
+  <li><strong>Zoom in/out or position map with cursor or finger to access a Abbreviate. </strong></li> 
 </ul>  
 </font>  </div>
 
 
 
-<div><strong><font size="1.3">Senate District:</strong> <span style="color:blue; font-size:150%; background-color:#dba9a9;" id='DISTRICT'></span></div>
+<div><strong><font size="1.3">Senate Abbreviate:</strong> <span style="color:blue; font-size:150%; background-color:#dba9a9;" id='Abbreviate'></span></div>
 
-<div><strong><font size="1.3">Number of families with children under 5:</strong> <span style="color:blue" id='n_fam_u5'></span></div>
+<div><strong><font size="1.3">Number of families with children under 5:</strong> <span style="color:blue" id='adu_min__2'></span></div>
 
 <p></p>
 
@@ -197,15 +197,12 @@ a:active {
     <td>Employed</td>
 
     <td style="text-align:center"><span id='adu_min__1'></span></td>
-    <td style="text-align:center"><span id='emp_n'></span></td>
-    <td style="text-align:center"><span id='emp_br'></span></td>
+    <td style="text-align:center"><span id='adu_min__1'></span></td>
+    <td style="text-align:center"><span id='adu_min__1'></span></td>
   </tr>
   <tr >
     <td>Employed full time</td>
-
-    <td style="text-align:center"><span id='ftemp_ba'></span></td>
-    <td style="text-align:center"><span id='ftemp_n'></span></td>
-    <td style="text-align:center"><span id='ftemp_br'></span></td>
+ 
   </tr>  
  
 </table>
@@ -235,9 +232,9 @@ a:active {
   <tr class="active-row">
     <td>Paying 50 weeks of ECE annually</td>
 
-    <td style="text-align:center"><span id='exp_ba'></span></td>
-    <td style="text-align:center"><span id='exp_diff_n'></span></td>
-    <td style="text-align:center"><span id='exp_diff_b'></span></td>
+    <td style="text-align:center"><span id='adu_min_lt'></span></td>
+    <td style="text-align:center"><span id='min_gt_15_'></span></td>
+    <td style="text-align:center"><span id='min_gt_1_a'></span></td>
   </tr>
  
 </table>
@@ -264,18 +261,12 @@ a:active {
 
   <tr class="active-row">
     <td>Center-based</td>
-
-    <td style="text-align:center"><span id='ccc_use_ba'></span></td>
-    <td style="text-align:center"><span id='ccc_use_n'></span></td>
-    <td style="text-align:center"><span id='ccc_use_br'></span></td>
+ 
   </tr>
   <tr>
     <td>Home-based</td>
 
-
-    <td style="text-align:center"><span id='fcc_use_ba'></span></td>
-    <td style="text-align:center"><span id='fcc_use_n'></span></td>
-    <td style="text-align:center"><span id='fcc_use_br'></span></td>
+ 
   </tr>  
  
 </table>
@@ -287,7 +278,7 @@ a:active {
                         
  
 <ul>
-  <li>For data sources and methodology see <a href="https://docs.google.com/document/d/1JqbhYzF_1sY2SpJE_wQq3WY86I558w6dsOL6-DnKcXM/edit" target="_blank">Impact of Increased Early Care and Education Investments by Minnesota Legislative Districts</a>.</li>
+  <li>For data sources and methodology see <a href="https://docs.google.com/document/d/1JqbhYzF_1sY2SpJE_wQq3WY86I558w6dsOL6-DnKcXM/edit" target="_blank">Impact of Increased Early Care and Education Investments by Minnesota Legislative Abbreviates</a>.</li>
   <li>These estimates provide context and direction for the types of expected effects from investing in these ECE policies, but the estimates are not intended to be used for detailed planning purposes by policymakers, government agencies, businesses, or families.</li> 
 </ul> 
 </font></strong>   </div>
@@ -330,14 +321,10 @@ map.on('load', () => {
 map.addSource('maui_merged_map-9bwln8', {
 type: 'vector',
 url: 'mapbox://wonlee.447wfbc5',
-promoteId: 'DISTRICT'
+promoteId: 'Abbreviate'
 
 });
-map.addSource('senate2022_20230223-4hzhui', {
-type: 'vector',
-url: 'mapbox://wonlee.a2s634e7'
-});
-
+ 
  
 map.addLayer({
 'id': 'maui_merged_map-9bwln8',
@@ -397,7 +384,7 @@ map.addLayer({
 
 'text-field': [
 'format',
-['upcase', ['get', 'DISTRICT']],
+['upcase', ['get', 'Abbreviate']],
 { 'font-scale': 1 },
 
 ],
@@ -427,28 +414,7 @@ map.addLayer({
 },
 'source-layer': 'maui_merged_map-9bwln8',
 });
-
-
- // Add a black outline around the polygon.
  
- 
-
-
-map.addLayer({
-'id': 'senate2022_20230223-4hzhui',
-'type': 'line',
-'source': 'senate2022_20230223-4hzhui',
-'layout': {'visibility': 'visible'
-},
-'paint': {
-'line-color': '#634700',
-'line-width': 1.5
-},'source-layer': 'senate2022_20230223-4hzhui',
-
-});
-
-
-
 
 
 
@@ -461,12 +427,12 @@ map.addLayer({
 // After the last frame rendered before the map enters an "idle" state.
 map.on('idle', () => {
 // If these two layers were not added to the map, abort
-if (!map.getLayer('senate2022_pointv3-3pub79') || !map.getLayer('maui_merged_map-9bwln8') ) {
+if (  !map.getLayer('maui_merged_map-9bwln8') ) {
 return;
 }
  
 // Enumerate ids of the layers.
-const toggleableLayerIds = ['senate2022_pointv3-3pub79', 'maui_merged_map-9bwln8' ];
+const toggleableLayerIds = [ 'maui_merged_map-9bwln8' ];
  
 // Set up the corresponding toggle button for each layer.
 for (const id of toggleableLayerIds) {
@@ -522,9 +488,9 @@ map.on('click',function(e){
         layers: ['maui_merged_map-9bwln8']
     });
     if (ZCTA5CE10.length >0) {
-        document.getElementById('DISTRICT').innerHTML = ZCTA5CE10[0].properties.DISTRICT ;
+        document.getElementById('Abbreviate').innerHTML = ZCTA5CE10[0].properties.Abbreviate ;
     } else {
-        document.getElemnentById('DISTRICT').innerHTML ='DISTRICT';
+        document.getElemnentById('Abbreviate').innerHTML ='Abbreviate';
     }
 });
 
@@ -535,9 +501,9 @@ map.on('click',function(e){
         layers: ['maui_merged_map-9bwln8']
     });
     if (ZCTA5CE10.length >0) {
-        document.getElementById('n_fam_u5').innerHTML = ZCTA5CE10[0].properties.n_fam_u5.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
+        document.getElementById('adu_min__2').innerHTML = ZCTA5CE10[0].properties.adu_min__2.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
     } else {
-        document.getElemnentById('n_fam_u5').innerHTML ='n_fam_u5';
+        document.getElemnentById('adu_min__2').innerHTML ='adu_min__2';
     }
 });
 
@@ -555,9 +521,9 @@ map.on('click',function(e){
         layers: ['maui_merged_map-9bwln8']
     });
     if (ZCTA5CE10.length >0) {
-        document.getElementById('exp_ba').innerHTML = '$'+ZCTA5CE10[0].properties.exp_ba.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
+        document.getElementById('adu_min_lt').innerHTML = '$'+ZCTA5CE10[0].properties.adu_min_lt.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
     } else {
-        document.getElemnentById('exp_ba').innerHTML ='exp_ba';
+        document.getElemnentById('adu_min_lt').innerHTML ='adu_min_lt';
     }
 });
 
@@ -569,9 +535,9 @@ map.on('click',function(e){
         layers: ['maui_merged_map-9bwln8']
     });
     if (ZCTA5CE10.length >0) {
-        document.getElementById('exp_diff_n').innerHTML = '$'+ZCTA5CE10[0].properties.exp_diff_n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
+        document.getElementById('min_gt_15_').innerHTML = '$'+ZCTA5CE10[0].properties.min_gt_15_.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
     } else {
-        document.getElemnentById('exp_diff_n').innerHTML ='exp_diff_n';
+        document.getElemnentById('min_gt_15_').innerHTML ='min_gt_15_';
     }
 });
 
@@ -581,9 +547,9 @@ map.on('click',function(e){
         layers: ['maui_merged_map-9bwln8']
     });
     if (ZCTA5CE10.length >0) {
-        document.getElementById('exp_diff_b').innerHTML = '$'+ZCTA5CE10[0].properties.exp_diff_b.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
+        document.getElementById('min_gt_1_a').innerHTML = '$'+ZCTA5CE10[0].properties.min_gt_1_a.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
     } else {
-        document.getElemnentById('exp_diff_b').innerHTML ='exp_diff_b';
+        document.getElemnentById('min_gt_1_a').innerHTML ='min_gt_1_a';
     }
 });
  
@@ -594,18 +560,7 @@ map.on('click',function(e){
 
  
 
- 
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('DISTRICT').innerHTML = ZCTA5CE10[0].properties.DISTRICT ;
-    } else {
-        document.getElemnentById('DISTRICT').innerHTML ='DISTRICT';
-    }
-});
+  
 
 
 map.on('click',function(e){
@@ -620,151 +575,7 @@ map.on('click',function(e){
 });
 
 
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('emp_n').innerHTML = ZCTA5CE10[0].properties.emp_n.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('emp_n').innerHTML ='emp_n';
-    }
-});
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('emp_br').innerHTML = ZCTA5CE10[0].properties.emp_br.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('emp_br').innerHTML ='emp_br';
-    }
-});
- 
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('ftemp_ba').innerHTML = ZCTA5CE10[0].properties.ftemp_ba.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('ftemp_ba').innerHTML ='ftemp_ba';
-    }
-});
-
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('ftemp_n').innerHTML = ZCTA5CE10[0].properties.ftemp_n.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('ftemp_n').innerHTML ='ftemp_n';
-    }
-});
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('ftemp_br').innerHTML = ZCTA5CE10[0].properties.ftemp_br.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('ftemp_br').innerHTML ='ftemp_br';
-    }
-});
-
-
-
- 
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('ccc_use_ba').innerHTML = ZCTA5CE10[0].properties.ccc_use_ba.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('ccc_use_ba').innerHTML ='ccc_use_ba';
-    }
-});
-
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('ccc_use_n').innerHTML = ZCTA5CE10[0].properties.ccc_use_n.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('ccc_use_n').innerHTML ='ccc_use_n';
-    }
-});
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('ccc_use_br').innerHTML = ZCTA5CE10[0].properties.ccc_use_br.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('ccc_use_br').innerHTML ='ccc_use_br';
-    }
-});
-
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('fcc_use_ba').innerHTML = ZCTA5CE10[0].properties.fcc_use_ba.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('fcc_use_ba').innerHTML ='fcc_use_ba';
-    }
-});
-
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('fcc_use_n').innerHTML = ZCTA5CE10[0].properties.fcc_use_n.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('fcc_use_n').innerHTML ='fcc_use_n';
-    }
-});
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('fcc_use_br').innerHTML = ZCTA5CE10[0].properties.fcc_use_br.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('fcc_use_br').innerHTML ='fcc_use_br';
-    }
-});
+  
 // Change the cursor to a pointer when the mouse is over the places layer.
 map.on('mouseenter', 'maui_merged_map-9bwln8', () => {
 map.getCanvas().style.cursor = 'pointer';

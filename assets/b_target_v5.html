@@ -74,7 +74,7 @@ map.on('load', () => {
 //     {
 //         FID_1: true,
 //         name: "Wyoming",
-//         countofmaui_zone_map-b8jyv3: 584153,
+//         countofmaui_zone_map2-6l2jtj: 584153,
 //         state: 56
 //     }
 // Each county contains four properties. For example:
@@ -82,18 +82,18 @@ map.on('load', () => {
 //         county: 16049,
 //         isCounty: true,
 //         name: "Idaho County",
-//         countofmaui_zone_map-b8jyv3: 16315
+//         countofmaui_zone_map2-6l2jtj: 16315
 //     }
-map.addSource('countofmaui_zone_map-b8jyv3', {
+map.addSource('countofmaui_zone_map2-6l2jtj', {
 'type': 'vector',
-'url': 'mapbox://wonlee.9pm76suh'
+'url': 'mapbox://wonlee.6gchi4hy'
 });
  
 map.addLayer(
 {
-'id': 'countofmaui_zone_map-b8jyv3',
-'source': 'countofmaui_zone_map-b8jyv3',
-'source-layer': 'countofmaui_zone_map-b8jyv3', 
+'id': 'countofmaui_zone_map2-6l2jtj',
+'source': 'countofmaui_zone_map2-6l2jtj',
+'source-layer': 'countofmaui_zone_map2-6l2jtj', 
 'type': 'fill',
 // only include features for which the "FID_1"
 // property is "true" 
@@ -101,7 +101,7 @@ map.addLayer(
 'fill-color': [
 'interpolate',
 ['linear'],
-['get', 'min_lot__1'],
+['get', 'min_lot_ac'],
 0,
 '#F2F12D',
 0.1,
@@ -124,7 +124,7 @@ map.addLayer(
 'fill-opacity': 0.75
 }
 },
-'countofmaui_zone_map-b8jyv3' // Add layer below labels
+'countofmaui_zone_map2-6l2jtj' // Add layer below labels
 );
  
 });

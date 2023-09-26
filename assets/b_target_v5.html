@@ -131,12 +131,7 @@ map.addLayer(
  
 });
  
-const stateLegendEl = document.getElementById('state-legend'); 
-map.on('zoom', () => {
-if (map.getZoom() > zoomThreshold) {
-stateLegendEl.style.display = 'none'; 
-}  
-});
+ 
 </script>
  
 </body>

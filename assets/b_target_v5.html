@@ -371,51 +371,7 @@ map.addLayer({
 
   
 
-map.addSource('senate2022_pointv3-3pub79', {
-type: 'vector',
-url: 'mapbox://wonlee.82xlwe1b'
-});
  
-map.addLayer({
-'id': 'senate2022_pointv3-3pub79',
-'type': 'symbol',
-'source': 'senate2022_pointv3-3pub79',
-'layout': {
-
-'text-field': [
-'format',
-['upcase', ['get', 'Abbreviate']],
-{ 'font-scale': 1 },
-
-],
-'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold']
-},
-'source-layer': 'senate2022_pointv3-3pub79',
-});
-
-
-
-map.addLayer({
-'id': 'maui_merged_map-9bwln8',
-'type': 'fill',
-'source': 'maui_merged_map-9bwln8',
-'layout': {
-// Make the layer visible by default.
-'visibility': 'visible'
-},
-'paint': {
-'fill-color':[
-'interpolate',
-['linear'],
-['get', 'base'],
-0, '#334ABC',  
-],
-"fill-opacity": 0.25  
-},
-'source-layer': 'maui_merged_map-9bwln8',
-});
- 
-
 
 
 

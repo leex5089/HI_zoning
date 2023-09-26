@@ -64,7 +64,7 @@ center: [-156.33487458431733, 20.79186228760135],
 minZoom: 2,
 zoom: 3
 }); 
-const zoomThreshold = 4;
+const zoomThreshold = 9;
  
 map.on('load', () => {
 // Add a custom vector tileset source. The tileset used in
@@ -72,7 +72,7 @@ map.on('load', () => {
 // county in the U.S.
 // Each state contains four properties. For example:
 //     {
-//         Abbreviate: true,
+//         FID_1: true,
 //         name: "Wyoming",
 //         maui_merged_map-9bwln8: 584153,
 //         state: 56
@@ -96,9 +96,9 @@ map.addLayer(
 'source-layer': 'maui_merged_map-9bwln8',
 'maxzoom': zoomThreshold,
 'type': 'fill',
-// only include features for which the "Abbreviate"
+// only include features for which the "FID_1"
 // property is "true"
-'filter': ['==', 'Abbreviate', true],
+'filter': ['==', 'FID_1', true],
 'paint': {
 'fill-color': [
 'interpolate',

@@ -94,9 +94,13 @@ map.addLayer(
 'id': 'countofmaui_zone_map2-6l2jtj',
 'source': 'countofmaui_zone_map2-6l2jtj',
 'source-layer': 'countofmaui_zone_map2-6l2jtj', 
+'maxzoom': zoomThreshold,
+
 'type': 'fill',
 // only include features for which the "FID_1"
 // property is "true" 
+'filter': ['==', 'Abbreviate', true],
+
 'paint': {
 'fill-color': [
 'interpolate',

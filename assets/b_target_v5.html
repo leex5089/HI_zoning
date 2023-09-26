@@ -1,16 +1,11 @@
-<script>
-  import Seo from '$lib/Seo.svelte';
-</script>
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Show and hide layers</title>
+<title>Update a choropleth layer by zoom level</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -18,562 +13,130 @@ body { margin: 0; padding: 0; }
 </head>
 <body>
 <style>
-
-  a:link {
-  color: #237EDE;
-  background-color: transparent;
-  text-decoration: none;
+.legend {
+background-color: #fff;
+border-radius: 3px;
+bottom: 30px;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+padding: 10px;
+position: absolute;
+right: 10px;
+z-index: 1;
 }
-
-a:visited {
-  color: #237EDE;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #0422FC;
-  background-color: transparent;
-  text-decoration: underline;
-}
-
-a:active {
-  color: #237EDE;
-  background-color: transparent;
-  text-decoration: underline;
-}
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-.styled-table { 
-  overflow:scroll;
-    overflow-x:hidden;
-  width: 90%;
-  height: 1%;  
-     border-collapse: collapse;
-    margin: 1% 0;
-    font-size: 9px;
-    font-family: sans-serif;
-    box-shadow: 0 0 5% rgba(0, 0, 0, 0.15);
-            text-align: center;
-
-}
-.styled-table thead tr {
-    background-color: #5b87c2;
-    color: #ffffff;
-    text-align: left;
-        height: 19px;
-
-}
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #5b87c2;
-    min-width: 2px;
-    max-width: 2px;
-    width:  2px;
-        text-align: left;
-        height: 19px;
-
-}
-
  
-
-
-
-
+.legend h4 {
+margin: 0 0 10px;
+}
  
-
-.styled-table th,
-.styled-table td {
-      overflow: hidden; 
-    text-overflow: ellipsis; 
-    word-wrap: break-word;
-    padding: 0.3% 0.3%;
-    width: 25% 
-         ;
-
+.legend div span {
+border-radius: 50%;
+display: inline-block;
+height: 10px;
+margin-right: 5px;
+width: 10px;
 }
-.styled-table tbody tr {
-    border-bottom: 0.1% solid #dddddd;
-            text-align: left;
-        height: 19px;
-
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #d3deed;
-            text-align: left;
-        height: 19px;
-
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom:  0.1% solid #5b87c2;
-            text-align: left;
-        height: 19px;
-
-}
-.quakeInfo {
-  overflow:scroll;
-    overflow-x:hidden;
-  position: relative;
-  font-family: sans-serif;
-  margin-top: 0.1%;
-  margin-left: 0.1%;
-  padding: 0.3%;
-  width: 45%;
-  height: 95%;
-  border: 2px solid black;
-  font-size: 15%;
-  color: #000000;
-  background-color: rgba(215, 235, 265, 0.93);
-  border-radius: 2%;
-}
-
 </style>
  
-<nav id="menu"></nav>
 <div id="map"></div>
  
- 
- <div class='quakeInfo'>
- <div><strong><font size="2">How Different Early Care and Education (ECE) Approaches Impact Families with Young Children
-
-  <p></p>
-
-</font></strong>  </div>
- <div><strong><font size="1.3">Instructions:  </strong>
-                        
- 
-<ul>
-  <li><strong>Click on or touch a Abbreviate to view data. </strong></li>
-  <li><strong>Zoom in/out or position map with cursor or finger to access a Abbreviate. </strong></li> 
-</ul>  
-</font>  </div>
-
-
-
-<div><strong><font size="1.3">Senate Abbreviate:</strong> <span style="color:blue; font-size:150%; background-color:#dba9a9;" id='Abbreviate'></span></div>
-
-<div><strong><font size="1.3">Number of families with children under 5:</strong> <span style="color:blue" id='adu_min__2'></span></div>
-
-<p></p>
-
- <div> <font size="1.7">Policy Approaches: 
-
-  <p></p>
-
-<ul>
-  <li>Targeted: Fully fund subsidies targeted to low-income families.</li>
-  <li>Plus Middle Income: Targeted policy plus middle-income family ECE payments capped at 7% of income.</li> 
-</ul>   
- 
- </div>
-
-
-
-
-
-
-<table class="styled-table" style="text-align:center">
-         <tr>
- <td colspan="4" style="text-align:center" ><strong><font size="1.3"  >More moms working and moving from part-time to full-time employment</strong> </td>  </tr>
- 
-        <td colspan="4" style="text-align:left" bgcolor=#D7EBFC size="0.5">  Percent of females age 20-64 with children under age 5 </td>
-
-      <thead>
-      <thead>
- 
-  <tr>
-    <td style="text-align:right">Policies:</td>
-    <td style="text-align:center">Current</td>
-    <td style="text-align:center">Targeted</td>
-    <td style="text-align:center">Plus Middle Income</td>
-  </tr>
-      </thead>
-
-  <tr class="active-row">
-    <td>Employed</td>
-
-    <td style="text-align:center"><span id='adu_min__1'></span></td>
-    <td style="text-align:center"><span id='adu_min__1'></span></td>
-    <td style="text-align:center"><span id='adu_min__1'></span></td>
-  </tr>
-  <tr >
-    <td>Employed full time</td>
- 
-  </tr>  
- 
-</table>
- 
-
-<p></p>
- 
-<table class="styled-table"  style="text-align:center"> 
-         <tr>
- <td colspan="4" style="text-align:center" ><strong><font size="1.3"  >Lower ECE costs for families</strong> </td>  </tr>
-
-        <td colspan="4" style="text-align:left" bgcolor=#D7EBFC size="0.5"> Average annual ECE Household expenditures and savings</td>
-
- 
-      <thead>
-
-      <thead>
-
-  <tr>
-    <td style="text-align:right">Policies:</td>
-    <td style="text-align:center">Current Expenditures</td>
-    <td style="text-align:center">Targeted Savings</td>
-    <td style="text-align:center">Plus Middle Income Savings</td>
-  </tr>
-      </thead>
-
-  <tr class="active-row">
-    <td>Paying 50 weeks of ECE annually</td>
-
-    <td style="text-align:center"><span id='adu_min_lt'></span></td>
-    <td style="text-align:center"><span id='min_gt_15_'></span></td>
-    <td style="text-align:center"><span id='min_gt_1_a'></span></td>
-  </tr>
- 
-</table>
-
-
-
-<p></p>
-   
-<table class="styled-table"  style="text-align:center">
-         <tr> <td colspan="4" style="text-align:center" ><strong><font size="1.3"  >More opportunity for families to use licensed ECE providers</strong> </td>  </tr>
-
-        <td colspan="4" style="text-align:left" bgcolor=#D7EBFC size="0.5"> Percent of families with children under age 5 using licensed ECE providers</td>
-
-      <thead>
-      <thead>
-
-  <tr class="active-row">
-    <td style="text-align:right">Policies:</td>
-    <td style="text-align:center">Current</td>
-    <td style="text-align:center">Targeted</td>
-    <td style="text-align:center">Plus Middle Income</td>
-  </tr>
-      </thead>
-
-  <tr class="active-row">
-    <td>Center-based</td>
- 
-  </tr>
-  <tr>
-    <td>Home-based</td>
-
- 
-  </tr>  
- 
-</table>
- 
-
-
- 
- <div style="text-align:left ;padding: 8px; border: 1px solid #C36161;  width: 85%;><strong><font size="1.3">  
-                        
- 
-<ul>
-  <li>For data sources and methodology see <a href="https://docs.google.com/document/d/1JqbhYzF_1sY2SpJE_wQq3WY86I558w6dsOL6-DnKcXM/edit" target="_blank">Impact of Increased Early Care and Education Investments by Minnesota Legislative Abbreviates</a>.</li>
-  <li>These estimates provide context and direction for the types of expected effects from investing in these ECE policies, but the estimates are not intended to be used for detailed planning purposes by policymakers, government agencies, businesses, or families.</li> 
-</ul> 
-</font></strong>   </div>
- 
- </div>
+<div id="state-legend" class="legend">
+<h4>maui_merged_map-9bwln8</h4>
+<div><span style="background-color: #723122"></span>25,000,000</div>
+<div><span style="background-color: #8b4225"></span>10,000,000</div>
+<div><span style="background-color: #a25626"></span>7,500,000</div>
+<div><span style="background-color: #b86b25"></span>5,000,000</div>
+<div><span style="background-color: #ca8323"></span>2,500,000</div>
+<div><span style="background-color: #da9c20"></span>1,000,000</div>
+<div><span style="background-color: #e6b71e"></span>750,000</div>
+<div><span style="background-color: #eed322"></span>500,000</div>
+<div><span style="background-color: #f2f12d"></span>0</div>
+</div>
+  
  
 <script>
   mapboxgl.accessToken = 'pk.eyJ1Ijoid29ubGVlIiwiYSI6ImNqYjY0bHZlczBvMnAzMm16OTlyYWFzYnYifQ.yaLx92dXVMk1NKp5Fp7HUg';
-  // Set bounds to San Francisco, California.
-const bounds = [
-[ -176.3753120378031,10.80694917921789 ], // Southwest coordinates
-[-136.3753120378031,30.80694917921789 ] // Northeast coordinates
-]; 
 const map = new mapboxgl.Map({
 container: 'map',
 // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
 style: 'mapbox://styles/mapbox/light-v11',
-zoom: 5.7,
-minZoom: 5.5,
-maxBounds: bounds, // Set the map's geographical boundaries.
-
-center: [  -156.3753120378031,20.80694917921789  ]
+center: [-156.33487458431733, 20.79186228760135],
+minZoom: 2,
+zoom: 3
+}); 
+const zoomThreshold = 4;
  
-});   
- 
-let hoveredStateId  = null;
-// Wait until the map has finished loading.
 map.on('load', () => {
-
-
-
-// Add a custom vector tileset source. This tileset contains
-// point features representing maui_merged_map-9bwln8. Each feature contains
-// three properties. For example:
-// {
-//     alt_name: "Museo Arqueologico",
-//     name: "Museo Inka",
-//     tourism: "museum"
-// }
+// Add a custom vector tileset source. The tileset used in
+// this example contains a feature for every state and
+// county in the U.S.
+// Each state contains four properties. For example:
+//     {
+//         Abbreviate: true,
+//         name: "Wyoming",
+//         maui_merged_map-9bwln8: 584153,
+//         state: 56
+//     }
+// Each county contains four properties. For example:
+//     {
+//         county: 16049,
+//         isCounty: true,
+//         name: "Idaho County",
+//         maui_merged_map-9bwln8: 16315
+//     }
 map.addSource('maui_merged_map-9bwln8', {
-type: 'vector',
-url: 'mapbox://wonlee.447wfbc5',
-promoteId: 'Abbreviate'
-
+'type': 'vector',
+'url': 'mapbox://wonlee.447wfbc5'
 });
  
- 
-map.addLayer({
+map.addLayer(
+{
 'id': 'maui_merged_map-9bwln8',
-'type': 'fill',
 'source': 'maui_merged_map-9bwln8',
-'layout': {
-// Make the layer visible by default.
-'visibility': 'visible'
-},
+'source-layer': 'maui_merged_map-9bwln8',
+'maxzoom': zoomThreshold,
+'type': 'fill',
+// only include features for which the "Abbreviate"
+// property is "true"
+'filter': ['==', 'Abbreviate', true],
 'paint': {
-'fill-outline-color': '#000000',
-
-
-'fill-color':[
-
-
+'fill-color': [
 'interpolate',
 ['linear'],
-['get', 'base'],
-0, '#daa520 ', 
+['get', 'adu_min__1'],
+0,
+'#F2F12D',
+0.1,
+'#EED322',
+0.2,
+'#E6B71E',
+0.3,
+'#DA9C20',
+0.4,
+'#CA8323',
+0.5,
+'#B86B25',
+0.6,
+'#A25626',
+0.7,
+'#8B4225',
+0.8,
+'#723122'
 ],
- 
-'fill-opacity': [
-    'case',
-    ['boolean', ['adu_min__1', 'hover'], false],
-    0,
-    0.3
-]
+'fill-opacity': 0.75
+}
 },
-'source-layer': 'maui_merged_map-9bwln8',
-});
- 
-
-
-
-
-
-
-// Add the Mapbox Terrain v2 vector tileset. Read more about
-// the structure of data in this tileset in the documentation:
-// https://docs.mapbox.com/vector-tiles/reference/mapbox-terrain-v2/
-
- 
-
-  
-
- 
-
-
-
-
-
-
- }); 
- 
-// After the last frame rendered before the map enters an "idle" state.
-map.on('idle', () => {
-// If these two layers were not added to the map, abort
-if (  !map.getLayer('maui_merged_map-9bwln8') ) {
-return;
-}
- 
-// Enumerate ids of the layers.
-const toggleableLayerIds = [ 'maui_merged_map-9bwln8' ];
- 
-// Set up the corresponding toggle button for each layer.
-for (const id of toggleableLayerIds) {
-// Skip layers that already have a button set up.
-if (document.getElementById(id)) {
-continue;
-}
- 
-// Create a link.
-const link = document.createElement('a');
-link.id = id;
-link.href = '#';
-link.textContent = id;
-link.className = 'active';
- 
-// Show or hide layer when the toggle is clicked.
-link.onclick = function (e) {
-const clickedLayer = this.textContent;
-e.preventDefault();
-e.stopPropagation();
- 
-const visibility = map.getLayoutProperty(
-clickedLayer,
-'visibility'
+'road-label-simple' // Add layer below labels
 );
  
-// Toggle layer visibility by changing the layout object's visibility property.
-if (visibility === 'visible') {
-map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-this.className = '';
-} else {
-this.className = 'active';
-map.setLayoutProperty(
-clickedLayer,
-'visibility',
-'visible'
-);
-}
-};
- 
-const layers = document.getElementById('menu');
-layers.appendChild(link);
-}
-
-
-
-  
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('Abbreviate').innerHTML = ZCTA5CE10[0].properties.Abbreviate ;
-    } else {
-        document.getElemnentById('Abbreviate').innerHTML ='Abbreviate';
-    }
-});
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('adu_min__2').innerHTML = ZCTA5CE10[0].properties.adu_min__2.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
-    } else {
-        document.getElemnentById('adu_min__2').innerHTML ='adu_min__2';
-    }
-});
-
-
-
-
-
-
-
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('adu_min_lt').innerHTML = '$'+ZCTA5CE10[0].properties.adu_min_lt.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
-    } else {
-        document.getElemnentById('adu_min_lt').innerHTML ='adu_min_lt';
-    }
-});
-
-
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('min_gt_15_').innerHTML = '$'+ZCTA5CE10[0].properties.min_gt_15_.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
-    } else {
-        document.getElemnentById('min_gt_15_').innerHTML ='min_gt_15_';
-    }
-});
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('min_gt_1_a').innerHTML = '$'+ZCTA5CE10[0].properties.min_gt_1_a.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ;
-    } else {
-        document.getElemnentById('min_gt_1_a').innerHTML ='min_gt_1_a';
-    }
 });
  
-
-
-
- 
-
- 
-
-  
-
-
-map.on('click',function(e){
-    var ZCTA5CE10=map.queryRenderedFeatures(e.point, {
-        layers: ['maui_merged_map-9bwln8']
-    });
-    if (ZCTA5CE10.length >0) {
-        document.getElementById('adu_min__1').innerHTML = ZCTA5CE10[0].properties.adu_min__1.toFixed(1)+'%' ;
-    } else {
-        document.getElemnentById('adu_min__1').innerHTML ='adu_min__1';
-    }
+const stateLegendEl = document.getElementById('state-legend'); 
+map.on('zoom', () => {
+if (map.getZoom() > zoomThreshold) {
+stateLegendEl.style.display = 'none'; 
+}  
 });
-
-
-  
-// Change the cursor to a pointer when the mouse is over the places layer.
-map.on('mouseenter', 'maui_merged_map-9bwln8', () => {
-map.getCanvas().style.cursor = 'pointer';
-});
- 
-// Change it back to a pointer when it leaves.
-map.on('mouseleave', 'maui_merged_map-9bwln8', () => {
-map.getCanvas().style.cursor = '';
-});
-  
-// When the user moves their mouse over the state-fill layer, we'll update the
-// feature state for the feature under the mouse.
-
-      map.on('click', 'maui_merged_map-9bwln8', (e) => {
-        if (e.features.length > 0) {
-          if (hoveredStateId) {
-            map.setFeatureState({
-              source: 'maui_merged_map-9bwln8',
-              'sourceLayer': 'maui_merged_map-9bwln8',
-              id: hoveredStateId
-            }, {
-              hover: false
-            });
-          }
-          hoveredStateId = e.features[0].id;
-          map.setFeatureState({
-            source: 'maui_merged_map-9bwln8',
-            'sourceLayer': 'maui_merged_map-9bwln8',
-            id: hoveredStateId
-          }, {
-            hover: true
-          });
-        }
-      });
-
-
-   
-
-});
-
-
-
 </script>
  
 </body>

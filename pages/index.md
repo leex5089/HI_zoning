@@ -5,6 +5,6 @@ permalink: /
 section: home
 intro_paragraph: >
   <br>
- __Hawaii Zoning Replication Task__   <br>
+  __Charter Schools in state of Washington__  <br>
 
 ---

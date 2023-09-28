@@ -1,6 +1,6 @@
 # specify main menu items here
 
 - text: Home
-  url: /
-- text: Maui
-  url: /maui
+  url: / 
+- text: School Locations
+  url: /Target_v5

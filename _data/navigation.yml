@@ -1,6 +1,4 @@
 # specify main menu items here
-
-- text: Home
-  url: /home 
+ 
 - text: Maui
   url: /maui

@@ -5,6 +5,6 @@ permalink: /
 section: home
 intro_paragraph: >
   <br>
-  __Charter Schools in state of Washington__  <br>
+  __Hawaii Zoning Stats Replication__  <br>
 
 ---

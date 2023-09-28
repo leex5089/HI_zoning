@@ -1,7 +1,7 @@
 ---
 layout: home
 title:  
-permalink: /index
+permalink: /
 section: home
 intro_paragraph: >
   <br>

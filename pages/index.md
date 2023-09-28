@@ -5,6 +5,6 @@ permalink: /
 section: home
 intro_paragraph: >
   <br>
- Hawaii Zoning Replication Task  <br>
+ __Hawaii Zoning Replication Task__   <br>
 
 ---

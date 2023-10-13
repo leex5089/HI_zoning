@@ -5,6 +5,6 @@ permalink: /
 section: home
 intro_paragraph: >
   <br>
-  __Hawaii Zoning Stats Replication__  <br>
+  __Indicators for Assessing Exclusive Zoning Practices in Hawaii__  <br>
 
 ---
